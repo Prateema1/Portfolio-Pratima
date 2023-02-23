@@ -19,7 +19,7 @@
         <header>
             <a href="#" class="logo">Portfo<span>l</span>io</a>
                 <ul class="nav-list">
-                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#home" class="active">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#experience">Experience</a></li>
                     <li><a href="#projects">Projects</a></li>
@@ -29,6 +29,7 @@
 
             <div class="bx bx-menu" id="menu-icon"> </div>
             </header>
+            
             <!--Home section design-->
             <section class="home" id="home">
                 <div class="home-text">
@@ -54,13 +55,42 @@
             <!--About Section Design-->
             <section class="about" id="about">
               <div class="about-img">
-                <img src="./assets//images/profileImg.svg" />
+                <img src="./assets//images/profileImg.svg">
               </div>
               <div class="about-text">
                 <h2>About <span>Me</span></h2>
+                <h4>Software Developer (Full Stack)!</h4>
                 <p>
-                    I am a passionate full stack engineer who loves to turn business ideas into products. I have a hands on experience with various JavaScript technologies. I am open to learning and developing new skills. I am also interested in digital marketing and have worked for various clients. Currently, I am learning GraphQL, Next js and expanding my knowledge on DeVops. I also love learning about new culture and languages. Improving my Spanish vocabulary everyday. Hola!!
+                    I'm a Full Stack Software Developer, with 3 years of experience in building efficient and highly scalable web applications based on JavaScript technologies. I am open to learning and developing new skills. I am also interested in digital marketing and have worked for various clients. Currently, I am learning GraphQL, Next js and expanding my knowledge on DeVops. I also love learning about new culture and languages. Improving my Spanish vocabulary everyday. Hola!!
+                    <!-- who loves to turn business ideas into products. I have a hands on experience with various JavaScript technologies. I am open to learning and developing new skills. I am also interested in digital marketing and have worked for various clients. Currently, I am learning GraphQL, Next js and expanding my knowledge on DeVops. I also love learning about new culture and languages. Improving my Spanish vocabulary everyday. Hola!! -->
                 </p>
+                <div class="tab-titles">
+                 <p class="tab-links active-link" onclick="openTab('skills')">Skills</p>
+                 <p class="tab-links" onclick="openTab('experience')">Experience</p>
+                 <p class="tab-links" onclick="openTab('education')">Education</p>
+                </div>
+
+                <div class="tab-contents active-tab" id="skills">
+                    <ul>
+                        <li><span>Technical</span><br>JavaScript, ES6, TypeScript, React, Angular<br>Node JS, Express, MongoDB, PostgreSQL</li>
+                        <li><span>Collaboration</span><br>Git, GitHub, GitLab</li>
+                        <li><span>Others</span><br>Digital Marketing, SEO, Social Media Management<br>Content Creation</li>
+                    </ul>
+                </div>
+
+                <div class="tab-contents" id="experience">
+                    <ul>
+                        <li><span>MEAN/MERN Stack Developer</span><br>Worked as a full-time Software Developer using various Javascript technologies. Developed web applications using MEAN and MERN stack technologies. Responsible for designing, coding, developing, implementing, improving, and deploying features of different software applications. Contributed as an individual developer and collaborated with many teams in the organization.</li>
+                        <li><span>Product Dev Lead</span><br>Collaborated with the product team to bridge the gap between engineers and product development team members by analyzing product needs from a technical and non-technical perspective. Responsible for understanding the requirements of clients and delivering the solution. Tracked the issues reported by the team and ultimately resolved them.</li>
+                    </ul>
+                </div>
+
+                <div class="tab-contents" id="education">
+                    <ul>
+                        <li><span>2018</span><br>B.Tech In CSE at Lovely Professional University, India.</li>
+                        <li><span>2012</span><br>+2 In Science Faculty at Trinity Int'l School, Nepal.</li>
+                    </ul>
+                </div>
               </div>
             </section>
 
@@ -99,7 +129,7 @@
                     <img src="./assets//images/task-manager.png" />
                     <div class="layer">
                         <h5>MakeMyTask</h5>
-                        <p>Basic Task Management application created using PostgreSQL, Express, React Js and MongoDB. Set up your custom progress bar to keep track of your task items. Sign Up today and get a step closer to your goal</p>
+                        <p>Basic Task Management application created using PostgreSQL, Express, React Js and MongoDB. Set up your custom progress bar to keep track of your task items. Sign Up today.</p>
                         <a href="https://github.com/prateema1" target="_blank"><i class='bx bx-link-external'></i></a>
                     </div>
                 </div>
@@ -137,12 +167,14 @@
                  </div>
 
                  <div class="contact-form">
-                  <form action="">
-                    <input type="name" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea name="" id="" cols="35" rows="10" placeholder="Your Message" required></textarea>
+                  <form name="submit-to-google-sheet">
+                    <input type="name" name="Name" placeholder="Your Name" required>
+                    <input type="email" name="Email" placeholder="Your Email" required>
+                    <textarea name="Message" id="" cols="35" rows="10" placeholder="Your Message" required></textarea>
                     <input type="submit" value="Submit" class="submit" required>
                   </form>
+
+                  <span id="message"></span>
                 </div>
               
             </section>
@@ -167,5 +199,40 @@
                 loop: true
             });
         </script>
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbxv6197oq15zsYjV9R74mDLB-QLQcS0L4N8rxoJVCk8peKcI3X0Km7bi_jPzzFrIQts/exec'
+    const form = document.forms['submit-to-google-sheet']
+    const message = document.getElementById("message")
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+            message.innerHTML = "Thank you for getting in touch. Your message has been received."
+            setTimeout(() => {
+                message.innerHTML = ""
+            }, 5000)
+            form.reset()
+        })
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+
+  <script>
+    var tablinks = document.getElementsByClassName("tab-links")
+var tabcontents = document.getElementsByClassName("tab-contents")
+    function openTab(tabname) {
+ for(tablink of tablinks) {
+    tablink.classList.remove("active-link")
+ }
+
+ for(tabcontent of tabcontents) {
+    tabcontent.classList.remove("active-tab")
+ }
+
+ event.currentTarget.classList.add("active-link")
+ document.getElementById(tabname).classList.add("active-tab")
+ }
+  </script>
 </body>
 </html>  
